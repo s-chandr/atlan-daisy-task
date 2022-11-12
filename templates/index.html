@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>File Generate Excel Report using Python Flask and PostgreSQL</title>
+</head>
+<body>
+
+
+    <form action="{{ url_for('personadd')}}" method="post">
+        <h5>Enter the user Details</h5>
+        <div>
+            <input type="text" name="name" placeholder="name">
+        </div>
+        <div>
+            <label for="city">Choose a city:</label>
+                <select id="city" name="city">
+                    <option value="Delhi">Delhi</option>
+                    <option value="Washington">Washington</option>
+                    <option value="Bhutan">Bhutan</option>
+                    
+                </select>
+        </div>
+        <div>
+            <input type="text" name="field" placeholder="field">
+        </div>
+        <div>
+            <button >Submit</button>
+        </div>
+
+    </form>
+    <a href="{{ url_for('.download_report') }}">Generate Excel Report</a>
+
+</body>
+</html>
