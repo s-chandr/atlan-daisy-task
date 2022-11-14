@@ -1,4 +1,4 @@
-![alt text](https://github.com/theSatvik/Atlan-Backend-Challenge/blob/main/media/atlan-logo.jpg "Atlan")
+![alt text](https://github.com/s-chandr/atlan-daisy-task/blob/master/atlan-logo.jpg "Atlan")
 
 
 
