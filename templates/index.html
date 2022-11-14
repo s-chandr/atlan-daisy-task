@@ -5,10 +5,10 @@
 <body>
 
 
-    <form action="{{ url_for('personadd')}}" method="post">
+    <form action="{{ url_for('personadd')}}"  method="post">
         <h5>Enter the user Details</h5>
         <div>
-            <input type="text" name="name" placeholder="name">
+            <input type="text" name="name" value ="{{request.form['name']}}" placeholder="name">
         </div>
         
         <div>
@@ -21,15 +21,26 @@
                 </select>
         </div>
         <div>
-            <input type="text"  name="_phone_number"  placeholder="phone number" >
+            <input type="text"  name="_phone_number" pattern = "[0-9]{10}" value ="{{request.form['_phone_number']}}" placeholder="10 digit phone number" >
+            
+        </div>
+        <div>
+            <input type="number"  name="income"  value ="{{request.form['income']}}" placeholder="income" >
+            
+        </div>
+        <div>
+            <input type="number"  name="expenditure" value ="{{request.form['expenditure']}}" placeholder="expenditure" >
             
         </div>
         <div>
             <button >Submit</button>
+            {% for e in errors["err"] %}
+                <p>{{e}}</p>
+            {% endfor %}
         </div>
 
     </form>
-    <a href="{{ url_for('.download_report') }}">Generate Excel Report</a>
+    <a href="{{ url_for('.download_report') }}">Generate Excel Report of all the succesfull entries till now</a>
 
 </body>
 </html>

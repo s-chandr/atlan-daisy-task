@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request , Response
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy_utils import PhoneNumber
 import xlwt
 import io
 
@@ -27,14 +26,18 @@ class Persons(db.Model):
     pname = db.Column(db.String(80), unique=True, nullable=False)
     _phone_number = db.Column(db.String(80))
     phone_country_code = db.Column(db.String(20))
+    income = db.Column(db.Integer)
+    expenditure = db.Column(db.Integer)
 
     
 
 
-    def __init__(self,pname, _phone_number , phone_country_code):
+    def __init__(self,pname, _phone_number , phone_country_code , income , expenditure):
         self.pname = pname
         self._phone_number = _phone_number
         self.phone_country_code = phone_country_code
+        self.income = income
+        self.expenditure = expenditure
     
 #Twilio Config
 account_sid = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -44,22 +47,29 @@ client = Client(account_sid, auth_token)
 # @app.route('/')
 # def home():
 #     return '<a href="/addperson"><button> Click here </button></a>'
-
+errors = {} 
 
 @app.route("/")
 def addperson():
-    return render_template("index.html")
+    errors = {}
+    return render_template("index.html" , errors = errors)
 
 
 @app.route("/personadd", methods=['POST'])
 def personadd():
-    
+    errors = {}
     pname=request.form["name"]
     _phone_number = request.form["_phone_number"]
     phone_country_code = request.form["phone_country_code"]
+    income = request.form["income"]
+    expenditure = request.form["expenditure"]
+    #add income and expenditure as well and check this at server side 
+    #phonenumber validation at client side 
     
-    
-    entry = Persons(   pname  , _phone_number   , phone_country_code  )
+    if int(income)<int(expenditure):
+        errors["err"] = ["The expenditure can't be greater then income!"]
+        return render_template("index.html" , errors = errors)
+    entry = Persons(   pname  , _phone_number   , phone_country_code , income, expenditure)
     db.session.add(entry)
     db.session.commit()
     message = client.messages.create(
@@ -68,7 +78,7 @@ def personadd():
          to=phone_country_code+_phone_number
     )
     print(_phone_number, phone_country_code)
-    return render_template("index.html")
+    return render_template("index.html" , errors = errors)
 
 @app.route('/download/report/excel')
 def download_report():
@@ -88,6 +98,9 @@ def download_report():
     sh.write(0, 1, 'pname')
     sh.write(0, 2, '_phone_number')
     sh.write(0, 3, 'phone_country_code')
+    sh.write(0, 4, 'income')
+    sh.write(0, 5, 'expenditure')
+    
  
     idx = 0
     for row in result:
@@ -95,6 +108,8 @@ def download_report():
         sh.write(idx+1, 1, row.pname)
         sh.write(idx+1, 2, row._phone_number)
         sh.write(idx+1, 3, row.phone_country_code)
+        sh.write(idx+1, 3, row.income)
+        sh.write(idx+1, 3, row.expenditure)
         idx += 1
  
     workbook.save(output)
