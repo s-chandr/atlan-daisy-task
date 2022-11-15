@@ -28,7 +28,7 @@ on the basis of cities (which was the answer to a different MCQ question).
 
 ```
 ### Various Approches/ideas : -
-1. Since this is an mcq questions answer we will defince common slands and can see if that option is being selected by the user or not.
+1. Since this is an mcq questions answer we will be pre-defined , so common slangs will get noted upon being selected by a user.
 
 
 ## :rocket: Task 2 
