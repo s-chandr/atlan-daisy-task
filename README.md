@@ -2,10 +2,10 @@
 
 # Atlan-Backend-Challenge
 
-## :bookmark_tabs: What This Document is all about atlan's Internship hiring challenge 
+## :bookmark_tabs: This Document is all about atlan's Internship hiring challenge 
 
 
-## Database Model (Used PostreSQL)
+## Database Model (Used PostgreSQL)
 ```shell 
 class Persons(db.Model):
     __tablename__ = 'persons'   
@@ -26,7 +26,7 @@ on the basis of cities (which was the answer to a different MCQ question).
 
 ```
 ### Various Approches/ideas : -
-1. Since this is an mcq questions answer we will be pre-defined , so common slangs will get noted upon being selected by a user.
+1. Since this is an mcq questions answer will be pre-defined , so common slangs will get noted upon being selected by a user.
 
 
 ## :rocket: Task 2 
