@@ -75,7 +75,7 @@ def mistakes():
         if(row.income<row.expenditure):
             person["details"].append( "{} has incorerect entry income={} and expenditure={}".format(row.pname , row.income, row.expenditure))
     return render_template("index.html" , person = person)
-     ```
+```
 
 
 
