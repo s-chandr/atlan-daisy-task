@@ -1,13 +1,11 @@
 ![alt text](https://github.com/s-chandr/atlan-daisy-task/blob/master/atlan-logo.jpg "Atlan")
 
-
-
 # Atlan-Backend-Challenge
 
 ## :bookmark_tabs: What This Document is all about atlan's Internship hiring challenge 
 
 
-## Database Model. 
+## Database Model (Used PostreSQL)
 ```shell 
 class Persons(db.Model):
     __tablename__ = 'persons'   
@@ -38,8 +36,8 @@ A market research agency wanted to validate responses coming in against a set of
 to fix it when the rules generate a flag.
 ```
 ### Various Approches/ideas : -
-There can be two approached : 
-1 . Checking during insertion: 
+There can be two approached :  
+1 . Checking during insertion: After the data gets collected from html form, at server side simple logics can validate the incoming data and on wrong data it can notify.
 ``` shell 
 @app.route("/personadd", methods=['POST'])
 def personadd():
@@ -57,7 +55,7 @@ def personadd():
         return render_template("base.html" , errors = errors)
 
 ```
-2. Checking after data is collected : We can loop over the data in database. 
+2. Checking after data is collected : We can loop over the data in database and false data can be reported accordingly.
 ``` shell
 @app.route('/mistakes')
 def mistakes():
@@ -79,7 +77,7 @@ connect their CRM, and also generate graphs and charts offered by Sheets out of 
 each response to the form becomes a row in the sheet, and questions in the form become columns. 
 ```
 ### Various Approches/ideas : -
-
+Looping over the data from the database we can xlwt workbook object and append row wise data to it. At the end simply generate and download an excel file.
 ``` shell 
 @app.route('/download/report/excel')
 def download_report():
@@ -131,7 +129,7 @@ participated in the exercise
 
 ```
 ### Various Approches/ideas : -
-For this i have used twilio api. So as soon as the form gets submitted one sms is sent to the user on successfull submissions containing filled details by him.
+For this i have used twilio api. So as soon as the form gets submitted, one sms is sent to the user on successfull submissions containing filled details by him to his/her phone number. Here the free/trial version only sends sms to owner's personal number. 
 ```shell 
 #Twilio Config
 account_sid = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
